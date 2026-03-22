@@ -1,0 +1,359 @@
+.tasks-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 16px;
+}
+
+.tasks-run-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.task-type-card {
+  border: 1.5px solid #ece8f5;
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: #fff;
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.task-type-card:hover {
+  border-color: #b8a0f0;
+  background: #faf8ff;
+}
+
+.task-type-card.selected {
+  border-color: #6c47e8;
+  background: #f5f2fc;
+}
+
+.task-type-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.task-type-icon svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ti-purple { background: #ede8fb; } .ti-purple svg { stroke: #6c47e8; }
+.ti-green  { background: #e6f9f0; } .ti-green  svg { stroke: #1aad70; }
+.ti-orange { background: #fff4ec; } .ti-orange svg { stroke: #f07030; }
+.ti-blue   { background: #eff4ff; } .ti-blue   svg { stroke: #2563eb; }
+.ti-pink   { background: #fdf0f8; } .ti-pink   svg { stroke: #c026a8; }
+.ti-teal   { background: #e6f7fa; } .ti-teal   svg { stroke: #0891b2; }
+
+.task-type-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1530;
+  margin-bottom: 2px;
+}
+
+.task-type-desc {
+  font-size: 11px;
+  color: #a89ec8;
+  line-height: 1.4;
+}
+
+.run-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.run-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.run-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1530;
+}
+
+.run-input {
+  height: 42px;
+  border: 1px solid #e2ddf0;
+  border-radius: 9px;
+  padding: 0 14px;
+  font-size: 13px;
+  color: #1a1530;
+  background: #faf8ff;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.run-input:focus {
+  border-color: #6c47e8;
+  background: #fff;
+}
+
+.run-textarea {
+  min-height: 80px;
+  border: 1px solid #e2ddf0;
+  border-radius: 9px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #1a1530;
+  background: #faf8ff;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.run-textarea:focus {
+  border-color: #6c47e8;
+  background: #fff;
+}
+
+.run-btn {
+  height: 46px;
+  background: #6c47e8;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.15s;
+  width: 100%;
+}
+
+.run-btn:hover { opacity: 0.9; }
+.run-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.run-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.run-btn-spinner {
+  animation: taskSpin 1s linear infinite;
+}
+
+@keyframes taskSpin {
+  to { transform: rotate(360deg); }
+}
+
+.task-history {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.task-item {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f5f2fc;
+  transition: background 0.15s;
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-item:hover {
+  background: #faf8ff;
+}
+
+.task-item-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.task-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.task-item-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.task-item-icon svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.task-item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1530;
+}
+
+.task-item-meta {
+  font-size: 11px;
+  color: #a89ec8;
+  margin-top: 2px;
+}
+
+.task-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.dot-completed { background: #1aad70; }
+.dot-running   { background: #6c47e8; animation: pulse 1.5s infinite; }
+.dot-failed    { background: #f07030; }
+.dot-pending   { background: #a89ec8; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.task-item-output {
+  background: #f5f2fc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #4a3a70;
+  line-height: 1.6;
+  margin-top: 8px;
+  white-space: pre-wrap;
+}
+
+.task-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: #a89ec8;
+  font-size: 14px;
+}
+
+.task-empty-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #f0edf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+
+.task-empty-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: #b8a0f0;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.credits-bar {
+  background: #f5f2fc;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.credits-label {
+  font-size: 12px;
+  color: #6a6085;
+  font-weight: 500;
+}
+
+.credits-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: #6c47e8;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.credits-track {
+  flex: 1;
+  height: 4px;
+  background: #e2ddf0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.credits-fill {
+  height: 100%;
+  background: #6c47e8;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.autofill-preview {
+  background: #f5f2fc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.autofill-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.autofill-label {
+  color: #a89ec8;
+  font-weight: 500;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.autofill-value {
+  color: #1a1530;
+  font-weight: 400;
+}
