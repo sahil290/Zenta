@@ -39,7 +39,8 @@ export function useContacts() {
     if (error) setError(error.message)
     else setContacts(data ?? [])
     setLoading(false)
-  }, [supabase])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => { fetch() }, [fetch])
 

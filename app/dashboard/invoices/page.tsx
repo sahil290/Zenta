@@ -196,7 +196,7 @@ export default function InvoicesPage() {
     showToast('Invoice marked as paid')
   }
 
-  const handleDownloadPDF = (inv: { contact_name?: string; contact_email?: string; amount: number; due_date: string; created_at: string; description?: string | null }, idx: number) => {
+  const handleDownloadPDF = (inv: { contact_name?: string; contact_email?: string; amount: number; due_date: string; created_at: string; description?: string | null }) => {
     const num = getInvoiceNumber(invoices.findIndex(i => i.amount === inv.amount))
     const content = [
       `INVOICE ${num}`,
@@ -313,7 +313,7 @@ export default function InvoicesPage() {
                   <tr><td colSpan={7} className="inv-empty">
                     {search || filter !== 'all' ? 'No invoices match' : 'No invoices yet — create your first one'}
                   </td></tr>
-                ) : filtered.map((inv, idx) => (
+                ) : filtered.map((inv, _idx) => (
                   <tr key={inv.id}>
                     <td><span className="inv-number">{getInvoiceNumber(invoices.indexOf(inv))}</span></td>
                     <td>
@@ -348,7 +348,7 @@ export default function InvoicesPage() {
                             </svg>
                           </button>
                         )}
-                        <button className="action-icon-btn" title="Download" onClick={() => handleDownloadPDF(inv, idx)}>
+                        <button className="action-icon-btn" title="Download" onClick={() => handleDownloadPDF(inv, 0)}>
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                             <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
                           </svg>

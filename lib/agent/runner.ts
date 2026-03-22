@@ -143,7 +143,7 @@ export async function runAgent({
         success: true,
         output: `✓ Email sent to ${recipientEmail}\n\nSubject: ${subject}\n\n${body}\n\n---\n${summary}`,
       }
-    } catch (emailError) {
+    } catch {
       onLog?.('Email send failed — returning draft')
       return {
         success: true,

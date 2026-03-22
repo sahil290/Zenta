@@ -161,6 +161,7 @@ export default function TasksPage() {
     if (selectedContactId && config.needsInvoice && contactInvoices.length === 1) {
       setSelectedInvoiceId(contactInvoices[0].id)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedContactId, selectedType])
 
   // Build the full input object automatically

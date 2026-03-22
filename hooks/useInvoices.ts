@@ -52,7 +52,8 @@ export function useInvoices() {
       })))
     }
     setLoading(false)
-  }, [supabase])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => { fetch() }, [fetch])
 
