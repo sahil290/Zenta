@@ -40,7 +40,11 @@ function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-export function Sidebar() {
+interface SidebarProps {
+  user?: { name: string; email: string; plan: string }
+}
+
+export function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname()
   const [userName, setUserName] = useState('')
   const [userEmail, setUserEmail] = useState('')

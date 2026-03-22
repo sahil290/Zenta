@@ -74,7 +74,7 @@ function BarChart({ data }: { data: MonthData[] }) {
               legend: { display: false },
               tooltip: {
                 callbacks: {
-                  label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y.toLocaleString()}`,
+                  label: ctx => ` ${ctx.dataset.label}: $${(ctx.parsed.y ?? 0).toLocaleString()}`,
                 },
               },
             },

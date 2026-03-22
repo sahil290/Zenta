@@ -52,7 +52,7 @@ console.log('╚═════════════════════�
 // ── 1. ENV VARIABLES ─────────────────────────────────────────
 section('Environment Variables')
 
-const envPath = resolve(ROOT, '.env.local')
+const envPath = resolve(ROOT, '.env')
 if (!existsSync(envPath)) {
   fail('.env.local not found', 'Create it from .env.example')
 } else {
