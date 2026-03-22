@@ -20,21 +20,18 @@ export default function LoginPage() {
 
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
-    console.log('Login result:', { data, error })
-
     if (error) {
       setError(error.message)
       setLoading(false)
       return
     }
 
-    console.log('Session:', data.session)
-    console.log('User:', data.user)
-
-    // Force full page reload to pick up new session cookie
-    setTimeout(() => {
+    if (data.session) {
       window.location.href = '/dashboard'
-    }, 500)
+    } else {
+      setError('Login succeeded but no session — please try again')
+      setLoading(false)
+    }
   }
 
   const handleGoogle = async () => {
