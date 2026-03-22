@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check": "node scripts/check.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.20.0",
@@ -25,7 +26,7 @@
     "nextjs-toploader": "^3.9.17",
     "react": "^18",
     "react-dom": "^18",
-    "resend": "^3.5.0",
+    "resend": "^3.2.0",
     "stripe": "^15.0.0",
     "tailwind-merge": "^2.3.0",
     "zod": "^3.23.0",
