@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
-import { createClient } from '@supabase/supabase-js'
+import { createClient as _createSupabase } from '@supabase/supabase-js'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const createClient = (url: string, key: string) => _createSupabase<any>(url, key)
 import { cookies } from 'next/headers'
 import { runAgent, parseEmailOutput } from '@/lib/agent/runner'
 import { notifySlack } from '@/lib/integrations/slack'

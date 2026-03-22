@@ -31,8 +31,8 @@ export async function POST(req: NextRequest) {
   let userId: string | null = null
   const authHeader = req.headers.get('Authorization')
   if (authHeader?.startsWith('Bearer ')) {
-    const { createClient } = await import('@supabase/supabase-js')
-    const client = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+    const { createClient: _sc } = await import('@supabase/supabase-js')
+    const client = _sc<any>(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
     const { data: { user } } = await client.auth.getUser(authHeader.slice(7))
     if (user) userId = user.id
   }

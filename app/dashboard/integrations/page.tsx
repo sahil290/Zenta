@@ -171,13 +171,12 @@ export default function IntegrationsPage() {
       return
     }
 
-    await supabase.from('integrations').delete().eq('user_id', user.id).eq('type', integration.id)
-    const { error } = await supabase.from('integrations').insert({
+    const { error } = await supabase.from('integrations').upsert({
       user_id: user.id,
       type: integration.id,
       config: configValues,
       status: 'active',
-    })
+    } as Record<string, unknown>, { onConflict: 'user_id,type' })
 
     if (error) {
       showToast(`Save failed: ${error.message}`)

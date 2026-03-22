@@ -1,12 +1,13 @@
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 
-// Single consistent client using standard supabase-js
-// This stores session in localStorage which works reliably
-let client: ReturnType<typeof createSupabaseClient> | null = null
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Database = any
+
+let client: ReturnType<typeof createSupabaseClient<Database>> | null = null
 
 export function createClient() {
   if (client) return client
-  client = createSupabaseClient(
+  client = createSupabaseClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
