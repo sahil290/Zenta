@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
-export type TaskStatus = 'pending' | 'running' | 'completed' | 'failed'
+export type TaskStatus = 'pending' | 'running' | 'completed' | 'failed' | 'pending_review'
 
 export interface AgentTask {
   id: string

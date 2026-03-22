@@ -1,5 +1,6 @@
 import Groq from 'groq-sdk'
 import { Resend } from 'resend'
+import { buildEmailHtml } from '@/lib/email/template'
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! })
 const resend = new Resend(process.env.RESEND_API_KEY!)
@@ -73,15 +74,26 @@ Interaction notes: "${input.notes}"
 Format as: date, summary, follow-up actions needed.`
 
     case 'weekly_report':
-      return `Generate a professional weekly business summary for: ${input.period ?? 'this week'}.
-Sections: revenue highlights, tasks completed, leads in pipeline, priorities for next week.`
+      return `Generate a professional weekly business summary report for: ${input.period ?? 'this week'}.
+
+Real business data:
+${input.real_stats ?? 'No data available yet'}
+
+Write a clear, actionable report with these sections:
+1. Revenue snapshot
+2. Pipeline & leads
+3. Agent activity this week
+4. Overdue invoices needing attention
+5. Priorities for next week
+
+Be specific with the numbers provided. Keep it concise and actionable.`
 
     default:
       return `Complete this business task: ${JSON.stringify(input)}`
   }
 }
 
-function parseEmailOutput(output: string): { subject: string; body: string; summary: string } {
+export function parseEmailOutput(output: string): { subject: string; body: string; summary: string } {
   const subjectMatch = output.match(/SUBJECT:\s*(.+)/i)
   const bodyMatch = output.match(/BODY:\s*([\s\S]*?)(?=SUMMARY:|$)/i)
   const summaryMatch = output.match(/SUMMARY:\s*(.+)/i)
@@ -98,10 +110,12 @@ const EMAIL_TASKS: TaskType[] = ['invoice_chase', 'invoice_send', 'lead_followup
 export async function runAgent({
   taskType,
   input,
+  draftMode = false,
   onLog,
 }: {
   taskType: TaskType
   input: Record<string, unknown>
+  draftMode?: boolean
   onLog?: (message: string) => void
 }): Promise<{ success: boolean; output: string }> {
   onLog?.(`Starting task: ${taskType}`)
@@ -122,11 +136,11 @@ export async function runAgent({
   const rawOutput = completion.choices[0]?.message?.content ?? ''
   onLog?.('AI generation complete')
 
-  // Send real email for email-type tasks
+  // Don't send email if in draft mode — wait for user approval
   const isEmailTask = EMAIL_TASKS.includes(taskType)
   const recipientEmail = input.contact_email as string | undefined
 
-  if (isEmailTask && recipientEmail && process.env.RESEND_API_KEY) {
+  if (isEmailTask && recipientEmail && process.env.RESEND_API_KEY && !draftMode) {
     const { subject, body, summary } = parseEmailOutput(rawOutput)
     onLog?.(`Sending email to ${recipientEmail}...`)
 
@@ -135,7 +149,7 @@ export async function runAgent({
         from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
         to: recipientEmail,
         subject,
-        html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1a1530">${body.replace(/\n/g, '<br/>')}</div>`,
+        html: buildEmailHtml({ subject, body, taskType }),
         text: body,
       })
       onLog?.('Email sent successfully')

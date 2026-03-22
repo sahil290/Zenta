@@ -52,9 +52,9 @@ console.log('╚═════════════════════�
 // ── 1. ENV VARIABLES ─────────────────────────────────────────
 section('Environment Variables')
 
-const envPath = resolve(ROOT, '.env')
+const envPath = resolve(ROOT, '.env.local')
 if (!existsSync(envPath)) {
-  fail('.env not found', 'Create it from .env.example')
+  fail('.env.local not found', 'Create it from .env.example')
 } else {
   const env = readFileSync(envPath, 'utf8')
   const required = [
@@ -63,6 +63,9 @@ if (!existsSync(envPath)) {
     'GROQ_API_KEY',
     'RESEND_API_KEY',
     'RESEND_FROM_EMAIL',
+    'RAZORPAY_KEY_ID',
+    'RAZORPAY_KEY_SECRET',
+    'NEXT_PUBLIC_RAZORPAY_KEY_ID',
   ]
   required.forEach(key => {
     if (env.includes(`${key}=`) && !env.includes(`${key}=your_`) && !env.includes(`${key}=\n`)) {
@@ -90,7 +93,7 @@ const allDeps = { ...pkg.dependencies, ...pkg.devDependencies }
 
 const required_deps = [
   'next', '@supabase/supabase-js', '@supabase/ssr',
-  'groq-sdk', 'resend', 'nextjs-toploader', 'chart.js',
+  'groq-sdk', 'resend', 'razorpay', 'nextjs-toploader', 'chart.js',
 ]
 
 required_deps.forEach(dep => {
@@ -138,6 +141,15 @@ const requiredFiles = [
   'lib/supabase/server.ts',
   'lib/supabase/schema.sql',
   'lib/agent/runner.ts',
+  'app/dashboard/billing/page.tsx',
+  'app/dashboard/settings/page.tsx',
+  'app/dashboard/revenue/page.tsx',
+  'app/dashboard/integrations/page.tsx',
+  'components/AuthGuard.tsx',
+  'lib/email/template.ts',
+  'lib/integrations/slack.ts',
+  'lib/integrations/notion.ts',
+  'lib/integrations/zapier.ts',
   'middleware.ts',
 ]
 
@@ -188,12 +200,17 @@ if (grepConsoleLog.trim()) {
   pass('No console.log statements')
 }
 
-// Check middleware is not disabled
+// Check middleware or AuthGuard is protecting dashboard
 const middlewareContent = readFileSync(resolve(ROOT, 'middleware.ts'), 'utf8')
-if (middlewareContent.includes('disabled') || middlewareContent.includes('NextResponse.next()') && !middlewareContent.includes('createServerClient')) {
-  fail('Middleware appears to be disabled', 'Re-enable auth middleware for production')
+const authGuardExists = existsSync(resolve(ROOT, 'components/AuthGuard.tsx'))
+const dashboardLayout = existsSync(resolve(ROOT, 'app/dashboard/layout.tsx'))
+  ? readFileSync(resolve(ROOT, 'app/dashboard/layout.tsx'), 'utf8')
+  : ''
+
+if (middlewareContent.includes('createServerClient') || authGuardExists && dashboardLayout.includes('AuthGuard')) {
+  pass('Auth protection active (AuthGuard or middleware)')
 } else {
-  pass('Middleware is active')
+  fail('No auth protection found', 'Add AuthGuard to dashboard layout or re-enable middleware')
 }
 
 // ── 5. TYPESCRIPT CHECK ───────────────────────────────────────

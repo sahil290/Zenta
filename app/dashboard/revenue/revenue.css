@@ -1,0 +1,188 @@
+.revenue-filter-tabs {
+  display: flex;
+  gap: 4px;
+  background: #f0edf8;
+  border-radius: 9px;
+  padding: 3px;
+}
+
+.revenue-filter-tab {
+  padding: 6px 14px;
+  border-radius: 7px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6a6085;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.revenue-filter-tab.active {
+  background: #fff;
+  color: #6c47e8;
+  box-shadow: 0 1px 3px rgba(108, 71, 232, 0.15);
+}
+
+.revenue-stats{
+ display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.rev-stat {
+  background: #fff;
+  border: 1px solid #ece8f5;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.rev-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #a89ec8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.rev-stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1530;
+  letter-spacing: -0.8px;
+  line-height: 1;
+  margin-bottom: 6px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.rev-stat-change {
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rev-stat-change.up { color: #1aad70; }
+.rev-stat-change.down { color: #f07030; }
+.rev-stat-change.neutral { color: #a89ec8; }
+
+.revenue-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.revenue-grid-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.chart-wrap {
+  height: 200px;
+  position: relative;
+}
+
+.invoice-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid #f5f2fc;
+  font-size: 13px;
+}
+
+.invoice-row:last-child { border-bottom: none; }
+
+.invoice-row-client {
+  font-weight: 500;
+  color: #1a1530;
+  flex: 1;
+}
+
+.invoice-row-date {
+  font-size: 12px;
+  color: #a89ec8;
+  margin: 0 16px;
+}
+
+.invoice-row-amount {
+  font-weight: 700;
+  color: #1a1530;
+  font-family: 'DM Sans', sans-serif;
+  min-width: 70px;
+  text-align: right;
+}
+
+.breakdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f5f2fc;
+}
+
+.breakdown-item:last-child { border-bottom: none; }
+
+.breakdown-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.breakdown-label {
+  font-size: 13px;
+  color: #1a1530;
+  font-weight: 500;
+  flex: 1;
+}
+
+.breakdown-bar-wrap {
+  flex: 2;
+  height: 6px;
+  background: #f0edf8;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.breakdown-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.breakdown-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1530;
+  min-width: 60px;
+  text-align: right;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.empty-chart {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a89ec8;
+  font-size: 13px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.empty-chart svg {
+  width: 32px;
+  height: 32px;
+  stroke: #d4ccf5;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}

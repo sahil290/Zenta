@@ -1,30 +1,17 @@
-import { Sidebar } from '@/components/layout/Sidebar'
-import { createClient } from '@/lib/supabase/server'
+import { SidebarWrapper } from '@/components/layout/SiebarWrapper'
+import { MobileNav } from '@/components/layout/MobileNav'
+import { AuthGuard } from '@/components/AuthGuard'
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
-  const { data: profile } = await supabase
-    .from('users')
-    .select('full_name, email')
-    .eq('id', user?.id ?? '')
-    .single()
-
-  const { data: sub } = await supabase
-    .from('subscriptions')
-    .select('plan')
-    .eq('user_id', user?.id ?? '')
-    .single()
-
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="layout">
-      <Sidebar user={{
-        name: profile?.full_name ?? user?.email ?? 'User',
-        email: profile?.email ?? user?.email ?? '',
-        plan: sub?.plan ?? 'Free',
-      }} />
-      <div className="layout-main">{children}</div>
-    </div>
+    <AuthGuard>
+      <div className="layout">
+        <SidebarWrapper />
+        <div className="layout-main">
+          {children}
+        </div>
+        <MobileNav />
+      </div>
+    </AuthGuard>
   )
 }

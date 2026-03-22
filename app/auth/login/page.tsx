@@ -27,6 +27,8 @@ export default function LoginPage() {
     }
 
     if (data.session) {
+      // Small delay to ensure session cookie is written before middleware reads it
+      await new Promise(r => setTimeout(r, 300))
       window.location.href = '/dashboard'
     } else {
       setError('Login succeeded but no session — please try again')

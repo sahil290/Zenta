@@ -357,3 +357,9 @@
   color: #1a1530;
   font-weight: 400;
 }
+
+.dot-pending_review { background: #f07030; animation: pulse 1.5s infinite; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

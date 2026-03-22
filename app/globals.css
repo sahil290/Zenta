@@ -863,3 +863,74 @@ button { cursor: pointer; font-family: var(--font-body); }
   .auth-left { display: none; }
   .auth-right { padding: 24px; }
 }
+
+/* ── Mobile responsive ──────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .content-grid-2 { grid-template-columns: 1fr; }
+  .settings-grid { grid-template-columns: 1fr; }
+  .settings-nav { position: static; display: flex; flex-wrap: wrap; gap: 4px; padding: 8px; }
+  .settings-nav-item { flex: 1; min-width: 120px; justify-content: center; border-bottom: none !important; border-radius: 8px; }
+}
+
+@media (max-width: 768px) {
+  /* Hide sidebar, show mobile nav */
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .layout-main { padding-bottom: 70px; }
+
+  /* Mobile bottom nav */
+  .mobile-nav {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ece8f5;
+    padding: 8px 0;
+    z-index: 100;
+    justify-content: space-around;
+  }
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 12px;
+    text-decoration: none;
+    color: #a89ec8;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    border-radius: 8px;
+    transition: color 0.15s;
+  }
+
+  .mobile-nav-item.active { color: #6c47e8; }
+
+  .mobile-nav-item svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Stack grids */
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 0 16px; }
+  .content-grid-2 { grid-template-columns: 1fr; }
+  .content-grid-equal { grid-template-columns: 1fr; }
+  .page-content { padding: 0 16px 16px; }
+  .topbar { padding: 16px 16px 0; flex-wrap: wrap; gap: 10px; }
+  .topbar-right { width: 100%; justify-content: space-between; }
+  .topbar-search { flex: 1; }
+  .tasks-layout { grid-template-columns: 1fr; }
+  .invoices-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Mobile nav hidden by default */
+.mobile-nav { display: none; }
