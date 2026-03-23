@@ -43,7 +43,7 @@ const FEATURES = [
 const PLANS = [
   {
     name: 'Pro',
-    price: '$79',
+    price: '$49',
     period: '/month',
     trial: '14-day free trial',
     features: ['1,000 agent tasks/month', '5,000 contacts', 'All automations', 'Draft approval queue', 'Slack + Notion + Zapier', 'Email support'],
@@ -52,7 +52,7 @@ const PLANS = [
   },
   {
     name: 'Agency',
-    price: '$199',
+    price: '$99',
     period: '/month',
     trial: '14-day free trial',
     features: ['Unlimited agent tasks', 'Unlimited contacts', 'Everything in Pro', 'Team collaboration', 'Priority support', 'White-label option'],

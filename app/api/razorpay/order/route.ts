@@ -9,8 +9,8 @@ const razorpay = new Razorpay({
 })
 
 const PLANS = {
-  pro:    { id: 'pro',    amount: 7900,  currency: 'USD', description: 'Zenta Pro — $79/month' },
-  agency: { id: 'agency', amount: 19900, currency: 'USD', description: 'Zenta Agency — $199/month' },
+  pro:    { id: 'pro',    amount: 4900,  currency: 'USD', description: 'Zenta Pro — $49/month' },
+  agency: { id: 'agency', amount: 9900, currency: 'USD', description: 'Zenta Agency — $99/month' },
 }
 
 export async function POST(req: NextRequest) {

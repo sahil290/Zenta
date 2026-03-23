@@ -11,8 +11,8 @@ const PLANS = [
   {
     id: 'pro',
     name: 'Pro',
-    price: '$79',
-    priceNum: 79,
+    price: '$49',
+    priceNum: 49,
     period: '/month',
     trial: '14-day free trial',
     description: 'Perfect for freelancers and solo consultants',
@@ -31,8 +31,8 @@ const PLANS = [
   {
     id: 'agency',
     name: 'Agency',
-    price: '$199',
-    priceNum: 199,
+    price: '$99',
+    priceNum: 99,
     period: '/month',
     trial: '14-day free trial',
     description: 'For agencies and teams managing multiple clients',
@@ -51,9 +51,9 @@ const PLANS = [
 ]
 
 const MOCK_HISTORY = [
-  { date: 'Mar 1, 2025', desc: 'Pro plan — monthly', amount: '$79.00' },
-  { date: 'Feb 1, 2025', desc: 'Pro plan — monthly', amount: '$79.00' },
-  { date: 'Jan 1, 2025', desc: 'Pro plan — monthly', amount: '$79.00' },
+  { date: 'Mar 1, 2025', desc: 'Pro plan — monthly', amount: '$49.00' },
+  { date: 'Feb 1, 2025', desc: 'Pro plan — monthly', amount: '$49.00' },
+  { date: 'Jan 1, 2025', desc: 'Pro plan — monthly', amount: '$49.00' },
 ]
 
 declare global {
@@ -141,7 +141,7 @@ export default function BillingPage() {
         amount: order.amount,
         currency: order.currency,
         name: 'Zenta',
-        description: planId === 'pro' ? 'Pro Plan — $79/month' : 'Agency Plan — $199/month',
+        description: planId === 'pro' ? 'Pro Plan — $49/month' : 'Agency Plan — $99/month',
         order_id: order.orderId,
         prefill: {
           email: session?.user?.email ?? '',
@@ -362,7 +362,7 @@ export default function BillingPage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
                 <span style={{ color: '#6a6085' }}>Monthly amount</span>
                 <span style={{ fontWeight: 700, color: '#1a1530', fontSize: 16 }}>
-                  {currentPlan === 'free' ? '$0' : currentPlan === 'pro' ? '$79' : '$199'}
+                  {currentPlan === 'free' ? '$0' : currentPlan === 'pro' ? '$49' : '$99'}
                 </span>
               </div>
               {currentPlan !== 'free' && trialDaysLeft === null && (
