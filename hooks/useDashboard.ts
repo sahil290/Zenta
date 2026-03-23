@@ -59,10 +59,12 @@ export function useDashboard() {
     const sevenDaysAgo = new Date(now.getTime() - 7 * 86400000).toISOString()
 
     // Fetch all in parallel
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) { setLoading(false); return }
     const [invoicesRes, contactsRes, tasksRes] = await Promise.all([
-      supabase.from('invoices').select('*, contacts(name, email)').order('created_at', { ascending: false }),
-      supabase.from('contacts').select('*').order('created_at', { ascending: false }),
-      supabase.from('agent_tasks').select('*').order('created_at', { ascending: false }).limit(100),
+      supabase.from('invoices').select('*, contacts(name, email)').eq('user_id', user.id).order('created_at', { ascending: false }),
+      supabase.from('contacts').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
+      supabase.from('agent_tasks').select('*').eq('user_id', user.id).order('created_at', { ascending: false }).limit(100),
     ])
 
     const invoices = invoicesRes.data ?? []

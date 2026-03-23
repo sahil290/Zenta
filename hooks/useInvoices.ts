@@ -39,9 +39,12 @@ export function useInvoices() {
   const fetch = useCallback(async () => {
     setLoading(true)
     setError(null)
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) { setLoading(false); return }
     const { data, error } = await supabase
       .from('invoices')
       .select('*, contacts(name, email)')
+      .eq('user_id', user.id)
       .order('created_at', { ascending: false })
     if (error) setError(error.message)
     else {

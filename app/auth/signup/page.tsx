@@ -11,7 +11,6 @@ export default function SignupPage() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [success, setSuccess] = useState(false)
 
   const supabase = createClient()
 
@@ -19,7 +18,7 @@ export default function SignupPage() {
     e.preventDefault()
     setLoading(true)
     setError('')
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { data: { full_name: name } },
@@ -29,8 +28,18 @@ export default function SignupPage() {
       setLoading(false)
       return
     }
-    setSuccess(true)
-    setLoading(false)
+    if (data.session) {
+      window.location.replace('/dashboard')
+    } else {
+      // Fallback — sign them in directly
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
+      if (signInError) {
+        setError('Account created — please sign in')
+        setLoading(false)
+      } else {
+        window.location.replace('/dashboard')
+      }
+    }
   }
 
   const handleGoogle = async () => {
@@ -66,16 +75,7 @@ export default function SignupPage() {
           <h2 className="auth-title">Create your account</h2>
           <p className="auth-subtitle">Free forever. No credit card needed.</p>
 
-          {success ? (
-            <div className="auth-success">
-              <div className="auth-success-title">Check your email</div>
-              <div className="auth-success-body">
-                We sent a confirmation link to <strong>{email}</strong>. Click it to activate your account.
-              </div>
-            </div>
-          ) : (
-            <>
-              {error && <div className="auth-error">{error}</div>}
+          {error && <div className="auth-error">{error}</div>}
 
               <form onSubmit={handleSignup} className="auth-form">
                 <div className="auth-field">
@@ -140,8 +140,6 @@ export default function SignupPage() {
               <p className="auth-terms">
                 By signing up you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
               </p>
-            </>
-          )}
 
           <p className="auth-switch">
             Already have an account? <Link href="/auth/login">Sign in</Link>
